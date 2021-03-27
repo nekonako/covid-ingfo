@@ -25,7 +25,7 @@ export default function Home({ allData,countries}) {
                console.log(err)
             })
       })
-      setDataByCountries(h)
+      setDataByCountries(data)
       console.log(dataByCountries) 
    }, [])
 
