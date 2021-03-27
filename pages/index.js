@@ -9,24 +9,30 @@ export default function Home({ allData,countries}) {
    function formatNumber(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
    }
-   const [dataByCountries,setDataByCountries] = React.useState([])
 
-   React.useEffect(() =>{
-      let data = []
+   const getCountriesData = () => {
+      const r = []
       countries.map((item) => {
          Axios.get('https://covid19.mathdro.id/api/countries/' + item.name)
             .then(res => {
                let k = res.data
                let j = { countries : item.name }
                let h = Object.assign(k, j)
-               data.push(h)
+               r.push(h)
             })
             .catch(err => {
                console.log(err)
             })
+         return r
       })
-      setDataByCountries(data)
-      console.log(dataByCountries) 
+      return r
+   }
+   console.log(getCountriesData())
+
+   const [dataByCountries,setDataByCountries] = React.useState(getCountriesData() || [])
+
+   React.useEffect(() => {
+      setDataByCountries(dataByCountries)
    }, [])
 
    return (
@@ -34,8 +40,8 @@ export default function Home({ allData,countries}) {
          <Navbar/>
          <div className='py-28'>
             <Layout>
-               <div className='grid grid-cols-4 text-dark text-center text-3xl font-bold gap-4'>
-                   <div className='p-8 rounded-md bg-blue'>
+               <div className='grid grid-cols-1 text-dark md:grid-cols-4 text-center text-3xl font-bold gap-4'>
+                  <div className='p-8 rounded-md bg-blue'>
                      <div className='text-base font-normal pb-2'> Negara Terjangkit </div>
                      {formatNumber(countries.length)}
                   </div>
@@ -57,27 +63,27 @@ export default function Home({ allData,countries}) {
                   <table className='table-auto min-w-full'>
                      <thead className='font-bold'>
                         <tr className='pt-6 bg-primary'>
-                           <td className='p-4  border-b-2  border-gray-300 border-opacity-40' >Negara</td>
-                           <td className='p-4  border-b-2  border-gray-300 border-opacity-40'>Terkonfirmasi</td>
-                            <td className='p-4  border-b-2  border-gray-300 border-opacity-40' >Sembuh</td>
-                           <td className='p-4  border-b-2  border-gray-300 border-opacity-40'>Meninggal</td>
+                           <td className='p-4' >Negara</td>
+                           <td className='p-4'>Terkonfirmasi</td>
+                           <td className='p-4' >Sembuh</td>
+                           <td className='p-4'>Meninggal</td>
                         </tr>
                      </thead>
                      <tbody className='text-base'>
                         {dataByCountries.map((item, index) => {
                            return(
                               <tr key={index}>
-                                 <td  className='p-4'>
-                                     <div className='flex flex-row  items-center'>
+                                 <td  className='p-4 border-b-2 border-gray-300 border-opacity-30 border-dashed'>
+                                    <div className='flex flex-row  items-center'>
                                        <div className='h-3 w-3 rounded-full bg-blue mr-4'></div>
-                                       <div>{item.countries.toUpperCase()}</div>
+                                       <div>{item.countries}</div>
                                     </div>
                                  </td>
                                  <td className='p-4 border-b-2 border-gray-300 border-opacity-30 border-dashed'>
-                                     <div className='flex flex-row  items-center'>
+                                    <div className='flex flex-row  items-center'>
                                        <div className='h-3 w-3 rounded-full bg-yellow mr-4'></div>
                                        <div>{formatNumber(item.confirmed.value)}</div>
-                                       </div>
+                                    </div>
                                  </td>
                                  <td className='p-4 border-b-2 border-gray-300 border-opacity-30 border-dashed'>
                                     <div className='flex flex-row  items-center'>
@@ -86,7 +92,7 @@ export default function Home({ allData,countries}) {
                                     </div>
                                  </td>
                                  <td  className='p-4 border-b-2  border-gray-300 border-opacity-30 border-dashed'>
-                                     <div className='flex flex-row  items-center'>
+                                    <div className='flex flex-row  items-center'>
                                        <div className='h-3 w-3 rounded-full bg-red mr-4'></div>
                                        <div>{formatNumber(item.deaths.value)}</div>
                                     </div>
@@ -104,7 +110,7 @@ export default function Home({ allData,countries}) {
    )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
    try {
       const getAllData = await Axios.get('https://covid19.mathdro.id/api')
       const allData = getAllData.data
@@ -112,7 +118,7 @@ export async function getStaticProps() {
       const getCountries =  await Axios.get('https://covid19.mathdro.id/api/countries')
       const countries = getCountries.data.countries
 
-      return { props : { allData,countries, revalidate : 1} }
+      return { props : { allData,countries} }
    } catch(err){
       console.log(err)
       return { notFound : true }
