@@ -1,16 +1,34 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+:root {
+   @apply light;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.dark {
+   --color-bg-primary: #292E39;
+   --color-bg-secondary: #2E3440;
+   --color-text-primary: #ECEFF4;
+   --color-text-secondary: #D8DEE9;
+   --color-text-accent: #88C0D0;
+   --color-text-gray1: #292E39;
+   --color-text-gray2: #2E3440;
 }
 
-* {
-  box-sizing: border-box;
+.light {
+   --color-bg-primary: #E5E9F0;
+   --color-bg-secondary: #ffffff;
+   --color-text-primary: #4C566A;
+   --color-text-secondary: #67707F;
+   --color-text-accent: #88C0D0;
+   --color-text-gray1: #E5E9F0;
+   --color-text-gray2: #ffffff;
+
 }
+
+
+.bg-accent {
+   background-color : #88C0D0;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700;800&display=swap');
