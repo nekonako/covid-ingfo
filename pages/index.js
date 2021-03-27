@@ -19,12 +19,13 @@ export default function Home({ allData,countries}) {
                let k = res.data
                let j = { countries : item.name }
                let h = Object.assign(k, j)
-               dataByCountries.push(h)
+               data.push(h)
             })
             .catch(err => {
                console.log(err)
             })
       })
+      setDataByCountries(h)
       console.log(dataByCountries) 
    }, [])
 
@@ -66,7 +67,7 @@ export default function Home({ allData,countries}) {
                         {dataByCountries.map((item, index) => {
                            return(
                               <tr key={index}>
-                                 <td  className='p-4 border-b-2  border-gray-300 border-opacity-30 border-dashed'>
+                                 <td  className='p-4'>
                                      <div className='flex flex-row  items-center'>
                                        <div className='h-3 w-3 rounded-full bg-blue mr-4'></div>
                                        <div>{item.countries.toUpperCase()}</div>
