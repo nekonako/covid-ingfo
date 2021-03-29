@@ -42,7 +42,7 @@ export default function Home({ allData, countries}) {
             <Navbar/>
             <div className='py-28'>
                <Layout>
-                  <div className='grid grid-cols-1 text-dark md:grid-cols-2 lg:grid-cols-4 text-center text-3xl font-bold gap-4'>
+                  <div className='grid grid-cols-1 text-dark w-full md:grid-cols-2 lg:grid-cols-4 text-center text-3xl font-bold gap-4'>
                      <div className='p-8 rounded-md bg-blue'>
                         <div className='text-base font-normal pb-2'> Negara Terjangkit </div>
                         {formatNumber(k.length)}
@@ -62,7 +62,7 @@ export default function Home({ allData, countries}) {
                   </div>
                   <div className='mt-12 p-8 rounded-md bg-secondary'>
                      <div className='font-bold text-2xl mb-4'>Negara Terjangkit</div>
-                     <table className='table-auto min-w-full'>
+                     <table className='table-auto w-full'>
                         <thead className='font-bold'>
                            <tr className='pt-6 bg-primary'>
                               <td className='p-4' >Negara</td>
