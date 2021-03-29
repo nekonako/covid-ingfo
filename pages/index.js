@@ -42,7 +42,7 @@ export default function Home({ allData, countries}) {
             <Navbar/>
             <div className='py-28'>
                <Layout>
-                  <div className='grid grid-cols-1 text-dark md:gird-cols-2 lg:grid-cols-4 text-center text-3xl font-bold gap-4'>
+                  <div className='grid grid-cols-1 text-dark md:grid-cols-2 lg:grid-cols-4 text-center text-3xl font-bold gap-4'>
                      <div className='p-8 rounded-md bg-blue'>
                         <div className='text-base font-normal pb-2'> Negara Terjangkit </div>
                         {formatNumber(k.length)}
