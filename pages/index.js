@@ -36,7 +36,12 @@ export default function Home({ allData, countries}) {
    }, [])
 
    console.log(k)
-   if ( k.length < 1 ) return <div>loading</div>
+   if ( k.length < 1 ) return( 
+   <div className='flex min-h-full justify-center items-center min-h-screen flex-row'>
+      <div className='bg-secondary p-12 text-xl rounded-lg'>Loading sek cuk..</div>
+   </div>
+   )
+
       return (
          <div>
             <Navbar/>
@@ -62,7 +67,7 @@ export default function Home({ allData, countries}) {
                   </div>
                   <div className='mt-12 p-8 rounded-md bg-secondary'>
                      <div className='font-bold text-2xl mb-4'>Negara Terjangkit</div>
-                     <table className='table-auto w-full'>
+                     <table className='w-full'>
                         <thead className='font-bold'>
                            <tr className='pt-6 bg-primary'>
                               <td className='p-4' >Negara</td>
